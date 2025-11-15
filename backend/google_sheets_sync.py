@@ -22,6 +22,7 @@ def read_google_sheet():
     try:
         import gspread
         from oauth2client.service_account import ServiceAccountCredentials
+        import json
         
         print("🔑 구글 인증 중...")
         
@@ -30,12 +31,25 @@ def read_google_sheet():
             'https://spreadsheets.google.com/feeds',
             'https://www.googleapis.com/auth/drive'
         ]
+
+        credentials_json = os.getenv('GOOGLE_CREDENTIALS')
         
-        # credentials.json은 프로젝트 루트에 저장
-        creds = ServiceAccountCredentials.from_json_keyfile_name(
-            'credentials.json', 
-            scope
-        )
+        if credentials_json:
+            # 배포 환경: 환경변수 사용
+            print("  📌 환경변수에서 인증 정보 로드")
+            credentials_dict = json.loads(credentials_json)
+            creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                credentials_dict,
+                scope
+            )
+        else:
+            # 로컬 환경: 파일 사용
+            print("  📌 credentials.json 파일에서 인증 정보 로드")
+            creds = ServiceAccountCredentials.from_json_keyfile_name(
+                'credentials.json', 
+                scope
+            )
+            
         client = gspread.authorize(creds)
         
         print("📊 구글시트 읽기 중...")
