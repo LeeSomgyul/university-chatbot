@@ -1,21 +1,26 @@
 """
 FastAPI 메인 애플리케이션 - 통합 버전
 """
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
-import asyncio
-from contextlib import asynccontextmanager
+import sys
+import traceback
 
-from app.config import settings
-from app.models.schemas import (
-    ChatRequest,
-    ChatResponse,
-    HealthCheck,
-    UserProfile
-)
+try:
+    from fastapi import FastAPI, HTTPException
+    from fastapi.middleware.cors import CORSMiddleware
+    from datetime import datetime
+    import asyncio
+    from contextlib import asynccontextmanager
 
- print("✅ schemas import 성공")
+    from app.config import settings
+    print("✅ config import 성공")
+    
+    from app.models.schemas import (
+        ChatRequest,
+        ChatResponse,
+        HealthCheck,
+        UserProfile
+    )
+    print("✅ schemas import 성공")
     
     from app.models.session import session_store
     print("✅ session_store import 성공")
@@ -42,16 +47,6 @@ except Exception as e:
     print("=" * 50)
     traceback.print_exc()
     sys.exit(1)
-
-from app.models.session import session_store
-from app.services.chatbot import chatbot
-
-# 모든 라우터 import
-from app.routes import graduation, review_admin
-from app.routers.autocomplete import router as autocomplete_router
-from app.routers.calendar import router as calendar_router
-from app.routers.faq import router as faq_router
-
 
 # 앱 시작/종료 이벤트
 @asynccontextmanager
