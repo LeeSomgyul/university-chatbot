@@ -1,6 +1,7 @@
 """
 환경변수 설정 및 관리
 """
+import os
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
@@ -25,7 +26,7 @@ class Settings(BaseSettings):
     environment: str = "development"
     debug: bool = True
     host: str = "0.0.0.0"
-    port: int = 8000
+    port: int = int(os.getenv("PORT", 8000))
     
     # LLM Settings
     model_name: str = "gpt-4o-mini"
