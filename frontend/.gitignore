@@ -197,6 +197,8 @@ cython_debug/
 node_modules/
 build/
 dist/
+dist
+dist-ssr
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

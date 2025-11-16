@@ -11,6 +11,8 @@ import { AutoCompleteService } from '../service/autoCompleteService';
 import { CalendarService } from '../service/CalendarService';
 import { ChatbotService } from '../service/chatbotService';
 import React from 'react';
+import { FAQChild } from '../service/faqServices';
+
 
 
 interface Message {
@@ -20,15 +22,7 @@ interface Message {
     isError?: boolean;
     type?: 'regular' | 'faq';
     faqOptions?: string[];
-    children?: Array<{
-        id: number;
-        question: string;
-        answer_type: string;
-        answer_content: string | null;
-        title: string;
-        card_priority?: number | null;
-        action_type?: string | null;
-    }>;    
+    children?: FAQChild[];
 }
 
 

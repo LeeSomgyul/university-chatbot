@@ -12,9 +12,13 @@ export interface FAQResponse {
 
 export interface FAQChild {
     id: number;
-    title?: string;
-    question?: string;
+    title: string;
+    question: string;
+    answer_type: string;
+    answer_content: string | null;
     show_in_chat?: boolean;
+    card_priority?: number | null;
+    action_type?: string | null;
 }
 
 // FAQ 데이터 타입
