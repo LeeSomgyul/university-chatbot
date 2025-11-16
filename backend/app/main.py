@@ -14,6 +14,35 @@ from app.models.schemas import (
     HealthCheck,
     UserProfile
 )
+
+ print("✅ schemas import 성공")
+    
+    from app.models.session import session_store
+    print("✅ session_store import 성공")
+    
+    from app.services.chatbot import chatbot
+    print("✅ chatbot import 성공")
+    
+    # 모든 라우터 import
+    from app.routes import graduation, review_admin
+    print("✅ graduation, review_admin import 성공")
+    
+    from app.routers.autocomplete import router as autocomplete_router
+    print("✅ autocomplete import 성공")
+    
+    from app.routers.calendar import router as calendar_router
+    print("✅ calendar import 성공")
+    
+    from app.routers.faq import router as faq_router
+    print("✅ faq import 성공")
+
+except Exception as e:
+    print("=" * 50)
+    print("❌ IMPORT 실패!")
+    print("=" * 50)
+    traceback.print_exc()
+    sys.exit(1)
+
 from app.models.session import session_store
 from app.services.chatbot import chatbot
 
