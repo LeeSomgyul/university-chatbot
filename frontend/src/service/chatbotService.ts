@@ -27,7 +27,7 @@ interface UserContext {
  * 챗봇 응답을 위한 서비스 클래스
  */
 export class ChatbotService {
-    private static readonly API_BASE_URL = 'http://localhost:8000';
+    private static readonly API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
     
     /**
      * 사용자 메시지에 대한 챗봇 응답

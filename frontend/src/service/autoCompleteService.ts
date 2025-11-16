@@ -30,7 +30,7 @@ interface ApiResponse {
  */
 export class AutoCompleteService {
     // 백엔드 API URL
-    private static readonly API_BASE_URL = 'http://localhost:8000/api/autocomplete';
+    private static readonly API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/autocomplete`
     
     /**
      * 🔍 검색어를 기반으로 자동완성 제안을 가져옵니다

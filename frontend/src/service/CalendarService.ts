@@ -25,7 +25,7 @@ interface CalendarApiResponse {
  * 📅 학사일정 서비스
  */
 export class CalendarService {
-    private static readonly API_BASE_URL = 'http://localhost:8000/api/calendar';
+    private static readonly API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/calendar`;
 
     /**
      * 이번 달 학사일정 가져오기

@@ -7,7 +7,14 @@ export interface FAQResponse {
     title: string;
     response: React.ReactNode;
     options?: string[];
-    children?: any[];
+    children?: FAQChild[];
+}
+
+export interface FAQChild {
+    id: number;
+    title?: string;
+    question?: string;
+    show_in_chat?: boolean;
 }
 
 // FAQ 데이터 타입
@@ -142,7 +149,7 @@ export const fetchFAQData = async (faqId: number): Promise<FAQResponse> => {
     try {
         // 🔥 실제 백엔드 API 호출
         // console.log('📡 API 호출 시도:', `http://localhost:8000/api/faq/${faqId}`);
-        const response = await fetch(`http://localhost:8000/api/faq/${faqId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/faq/${faqId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -164,10 +171,10 @@ export const fetchFAQData = async (faqId: number): Promise<FAQResponse> => {
         const faqData = result.data;
 
         // 🔥 show_in_chat이 true인 자식 질문만 필터링
-        const filteredChildren = faqData.children?.filter((child: any) => child.show_in_chat === true) || [];
+        const filteredChildren = faqData.children?.filter((child: FAQChild) => child.show_in_chat === true) || [];
 
         // children에서 title을 options로 변환 (하위 호환성)
-        const options = filteredChildren.map((child: any) => child.title || child.question);
+        const options = filteredChildren.map((child: FAQChild) => child.title || child.question);
 
 
 
@@ -202,13 +209,4 @@ export const getAllFAQTitles = (): string[] => {
 // FAQ ID로 기본 정보 가져오기 (API 호출 없이)
 export const getFAQBasicInfo = (faqId: number): FAQItem | null => {
     return FAQ_ITEMS.find(item => item.id === faqId) || null;
-};
-
-export const validateFAQData = () => {
-    // console.log('🔍 FAQ_ITEMS 검증:', FAQ_ITEMS);
-    // console.log('🔍 사용 가능한 FAQ ID들:', FAQ_ITEMS.map(item => item.id));
-
-    FAQ_ITEMS.forEach(item => {
-        // console.log(`FAQ ${item.id}: ${item.title} (타입: ${typeof item.id})`);
-    });
 };

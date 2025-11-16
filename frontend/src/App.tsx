@@ -8,7 +8,7 @@ import './index.css';
 
 interface Message {
     sender: string;
-    text: string;
+    text: string | React.ReactNode;
     time: string;
 }
 
